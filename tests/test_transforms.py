@@ -1,6 +1,6 @@
 import pytest
 from pyspark.sql import SparkSession
-from src.cdc_pipeline.transforms import aggregate_by_status
+from cdc_pipeline.transforms import aggregate_by_status
 
 @pytest.fixture(scope="module")
 def spark() -> SparkSession:
@@ -13,7 +13,7 @@ def test_aggregate_by_status_groups_correctly(spark):
                 ("2025-01-15 14:30:00", "shipped", 20.0),
                 ("2025-01-15 16:00:00", "delivered", 30.0),
             ]
-    df =spark.CreateDataFrme(data, ["updated_at", "status", "amount"])
+    df =spark.createDataFrame(data, ["updated_at", "status", "amount"])
     result = aggregate_by_status(df)
     result = aggregate_by_status(df)
     rows = result.collect()
